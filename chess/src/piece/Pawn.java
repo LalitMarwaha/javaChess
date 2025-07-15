@@ -1,10 +1,15 @@
 package piece;
+
 import mypack.GamePanel;
+import mypack.Typeo;
 
-public class Pawn extends Piece{
+public class Pawn extends Piece {
 
-	public Pawn(int color,int col,int row){
+    public Pawn(int color,int col,int row){
 		super(color,col,row);
+
+		type=Typeo.PAWN;
+        
 		if(color==GamePanel.WHITE){
 			image=getImage("res/piece/w-pawn");
 		}
@@ -27,7 +32,7 @@ public class Pawn extends Piece{
 			}
 
 			//check the hitting piece
-			hittingP=gettinghitP(targetCol,targetRow);
+			hittingP=gettingHitP(targetCol,targetRow);
 
 			//1 square movement
 			if(targetCol==preCol && targetRow==preRow+moveValue && hittingP==null ){
@@ -42,7 +47,21 @@ public class Pawn extends Piece{
 			//diagonal and capture
 			if(Math.abs(targetCol-preCol)==1 && targetRow==preRow+moveValue && hittingP!=null && hittingP.color!=color){
 				return true;
-			} 
+			}
+
+			//en passant peasant? 
+
+			if(Math.abs(targetCol-preCol)==1 && targetRow==preRow+moveValue){
+				for(Piece piece:GamePanel.pieces){
+
+					if(piece.col==targetCol && /*piece.row==targetRow &&*/ piece.twoStepped==true){
+
+						hittingP=piece;
+						System.out.println(hittingP.col+"x"+hittingP.row);
+						return true;
+					}
+				}
+			}
 		}
 
 		return false;
