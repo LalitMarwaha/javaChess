@@ -712,13 +712,13 @@ public class GamePanel extends JPanel implements Runnable{
 
 	private void Undoer(){
 
-		if(Parser(tempString,1).equals("->")){
+		if(Parser(Moves[moveCount-1],1).equals("->")){
 			int valx1,valy1,valx2,valy2;
-			valx1=getNumberForChar(Parser(tempString,0).charAt(0));
-			valy1=9-(Parser(tempString,0).charAt(1) - '0');
+			valx1=getNumberForChar(Parser(Moves[moveCount-1],0).charAt(0));
+			valy1=9-(Parser(Moves[moveCount-1],0).charAt(1) - '0');
 			
-			valx2=getNumberForChar(Parser(tempString,2).charAt(0));
-			valy2=9-(Parser(tempString,2).charAt(1) - '0');
+			valx2=getNumberForChar(Parser(Moves[moveCount-1],2).charAt(0));
+			valy2=9-(Parser(Moves[moveCount-1],2).charAt(1) - '0');
 
 			System.out.println(valx2+"p"+valy2);
 			System.out.println(valx1+"q"+valy1);
@@ -733,11 +733,11 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		else{
 			int valx1,valy1,valx2,valy2;
-			valx1=getNumberForChar(Parser(tempString,0).charAt(0));
-			valy1=9-(Parser(tempString,0).charAt(1) - '0');
+			valx1=getNumberForChar(Parser(Moves[moveCount-1],0).charAt(0));
+			valy1=9-(Parser(Moves[moveCount-1],0).charAt(1) - '0');
 			
-			valx2=getNumberForChar(Parser(tempString,2).charAt(0));
-			valy2=9-(Parser(tempString,2).charAt(1) - '0');
+			valx2=getNumberForChar(Parser(Moves[moveCount-1],2).charAt(0));
+			valy2=9-(Parser(Moves[moveCount-1],2).charAt(1) - '0');
 
 			System.out.println(valx2+"p"+valy2);
 			System.out.println(valx1+"q"+valy1);
