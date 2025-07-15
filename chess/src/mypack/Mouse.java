@@ -5,8 +5,20 @@ import java.awt.event.MouseEvent;
 
 public class Mouse extends MouseAdapter{
 
-	public int x,y;
-	public boolean pressed;
+	public int mx,my;
+	public int locx,locy;
+	public boolean clicked;
+	boolean pressed;
+
+	//PrintStream ps = new PrintStream(new FileOutputStream("log.txt"));
+
+	@Override
+	public void mouseClicked(MouseEvent e){
+		locx=e.getX();
+		locy=e.getY();
+		clicked=true;
+		//System.out.println("mouselickd");
+	}
 
 	@Override
 	public void mousePressed(MouseEvent e){
@@ -20,13 +32,13 @@ public class Mouse extends MouseAdapter{
 
 	@Override
 	public void mouseDragged(MouseEvent e){
-		x=e.getX();
-		y=e.getY();
+		/*mx=e.getX();
+		my=e.getY();*/
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e){
-		x=e.getX();
-		y=e.getY();
+		mx=e.getX();
+		my=e.getY();
 	}
 }

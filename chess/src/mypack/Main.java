@@ -2,7 +2,7 @@ package mypack;
 
 import javax.swing.JFrame;
 
-public class Main {
+public class Main{
 	public static void main(String[] args) {
 		JFrame window = new JFrame("Simple Chess");
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -17,6 +17,5 @@ public class Main {
 		window.setVisible(true);
 		
 		gp.launchGame();
-
 	}
 }

@@ -1,10 +1,13 @@
 package piece;
 import mypack.GamePanel;
+import mypack.Typeo;
 
 public class King extends Piece{
-
+	
 	public King(int color,int col,int row){
 		super(color,col,row);
+
+		type=Typeo.KING;
 
 		if(color==GamePanel.WHITE){
 			image=getImage("res/piece/w-king");
@@ -28,11 +31,12 @@ public class King extends Piece{
 			}
 
 			//Castling
-			if(moved==false){
+			/*if(moved==false){
 				
 				//short castle
-				if(targetCol==preCol+2 && targetRow==preRow && !pieceIsOnStraightLine(targetCol,targetRow)){
-					for(Piece piece:GamePanel.simPieces){
+				//here we also need to check if knight is empty or not either we can do the same thing as Left which is what i think should be done
+				if(targetCol==preCol+2 && targetRow==preRow && !pieceIsOnStraightLine(targetCol,targetRow) && gettingHitP(targetCol,targetRow)==null){
+					for(Piece piece:GamePanel.pieces){
 						if(piece.col==preCol+3 && piece.row==preRow && piece.moved==false){
 							GamePanel.castlingP=piece;
 							return true;
@@ -41,9 +45,10 @@ public class King extends Piece{
 				}
 
 				//long castle
-				if(targetCol==preCol-2 && targetRow==preRow && !pieceIsOnStraightLine(targetCol,targetRow)){
+				if(targetCol==preCol-2 && targetRow==preRow && !pieceIsOnStraightLine(targetCol,targetRow) && gettingHitP(targetCol,targetRow)==null){
 					Piece p[]=new Piece[2];
-					for(Piece piece:GamePanel.simPieces){
+					for(Piece piece:GamePanel.pieces){
+
 						if(piece.col==preCol-3 && piece.row==targetRow){
 							p[0]=piece; //knight
 						}
@@ -58,7 +63,7 @@ public class King extends Piece{
 						}
 					}
 				}
-			}
+			}*/
 		}
 
 		return false;
