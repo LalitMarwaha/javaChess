@@ -803,9 +803,14 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 
 		//Displaying Moves
-		if(tempString!=null){
+		/*if(tempString!=null){
 			g2.setFont(new Font("Helvetica",Font.PLAIN,30));
 			g2.drawString(tempString,1200,500);
+		}*/
+		
+		if(moveCount>1){
+			g2.setFont(new Font("Helvetica",Font.PLAIN,30));
+			g2.drawString(Moves[moveCount-2],1200,500);
 		}
 		/*if(Moves[moveCount-1]!=null){
 			g2.setFont(new Font("Helvetica",Font.PLAIN,30));
