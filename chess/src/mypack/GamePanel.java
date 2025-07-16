@@ -444,11 +444,7 @@ public class GamePanel extends JPanel implements Runnable{
 			moveCount++;
 			for(Piece piece: pieces){
 				if(piece.color==BLACK){
-					System.out.println("blk twostpfalse");
 					piece.twoStepped=false;
-				}
-				else{
-					System.out.println("wht"+piece.twoStepped);
 				}
 			}
 		}
@@ -457,11 +453,7 @@ public class GamePanel extends JPanel implements Runnable{
 			moveCount++;
 			for(Piece piece: pieces){
 				if(piece.color==WHITE){
-					System.out.println("wht twostepfalse");
 					piece.twoStepped=false;
-				}
-				else{
-					System.out.println("blk"+activeP.twoStepped);
 				}
 			}
 		}
@@ -711,14 +703,14 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	private void Undoer(){
-
-		if(Parser(tempString,1).equals("->")){
+		System.out.println("move"+Moves[moveCount-2]);
+		if(Parser(Moves[moveCount-2],1).equals("->")){
 			int valx1,valy1,valx2,valy2;
-			valx1=getNumberForChar(Parser(tempString,0).charAt(0));
-			valy1=9-(Parser(tempString,0).charAt(1) - '0');
+			valx1=getNumberForChar(Parser(Moves[moveCount-2],0).charAt(0));
+			valy1=9-(Parser(Moves[moveCount-2],0).charAt(1) - '0');
 			
-			valx2=getNumberForChar(Parser(tempString,2).charAt(0));
-			valy2=9-(Parser(tempString,2).charAt(1) - '0');
+			valx2=getNumberForChar(Parser(Moves[moveCount-2],2).charAt(0));
+			valy2=9-(Parser(Moves[moveCount-2],2).charAt(1) - '0');
 
 			System.out.println(valx2+"p"+valy2);
 			System.out.println(valx1+"q"+valy1);
@@ -733,11 +725,11 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		else{
 			int valx1,valy1,valx2,valy2;
-			valx1=getNumberForChar(Parser(tempString,0).charAt(0));
-			valy1=9-(Parser(tempString,0).charAt(1) - '0');
+			valx1=getNumberForChar(Parser(Moves[moveCount-2],0).charAt(0));
+			valy1=9-(Parser(Moves[moveCount-2],0).charAt(1) - '0');
 			
-			valx2=getNumberForChar(Parser(tempString,2).charAt(0));
-			valy2=9-(Parser(tempString,2).charAt(1) - '0');
+			valx2=getNumberForChar(Parser(Moves[moveCount-2],2).charAt(0));
+			valy2=9-(Parser(Moves[moveCount-2],2).charAt(1) - '0');
 
 			System.out.println(valx2+"p"+valy2);
 			System.out.println(valx1+"q"+valy1);
@@ -811,9 +803,14 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 
 		//Displaying Moves
-		if(tempString!=null){
+		/*if(tempString!=null){
 			g2.setFont(new Font("Helvetica",Font.PLAIN,30));
 			g2.drawString(tempString,1200,500);
+		}*/
+		
+		if(moveCount>1){
+			g2.setFont(new Font("Helvetica",Font.PLAIN,30));
+			g2.drawString(Moves[moveCount-2],1200,500);
 		}
 		/*if(Moves[moveCount-1]!=null){
 			g2.setFont(new Font("Helvetica",Font.PLAIN,30));

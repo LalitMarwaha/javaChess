@@ -40,7 +40,8 @@ public class Piece{
 		BufferedImage image=null;
 
 		try{
-			image=ImageIO.read(new FileInputStream(imagePath+".png"));
+			//image=ImageIO.read(new FileInputStream(imagePath+".png"));
+			image=ImageIO.read(getClass().getResource(imagePath+".png"));
 		}
 
 		catch(IOException e){

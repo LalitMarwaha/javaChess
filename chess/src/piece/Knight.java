@@ -11,11 +11,11 @@ public class Knight extends Piece {
         type=Typeo.KNIGHT;
 
         if(color==GamePanel.WHITE){
-            image=getImage("res/piece/w-knight");
+            image=getImage("/res/piece/w-knight");
         }
 
         else{
-            image=getImage("res/piece/b-knight");
+            image=getImage("/res/piece/b-knight");
         }
     }
 
