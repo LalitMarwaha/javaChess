@@ -10,10 +10,10 @@ public class King extends Piece{
 		type=Typeo.KING;
 
 		if(color==GamePanel.WHITE){
-			image=getImage("res/piece/w-king");
+			image=getImage("/res/piece/w-king");
 		}
 		else{
-			image=getImage("res/piece/b-king");
+			image=getImage("/res/piece/b-king");
 		}
 	}
 

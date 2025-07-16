@@ -11,10 +11,10 @@ public class Rook extends Piece{
 		type=Typeo.ROOK;
 
 		if(color==GamePanel.WHITE){
-			image=getImage("res/piece/w-rook");
+			image=getImage("/res/piece/w-rook");
 		}
 		else{
-			image=getImage("res/piece/b-rook");
+			image=getImage("/res/piece/b-rook");
 		}
 	}
 
