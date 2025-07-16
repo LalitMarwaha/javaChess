@@ -11,11 +11,11 @@ public class Bishop extends Piece {
         type=Typeo.BISHOP;
 
         if(color==GamePanel.WHITE){
-            image=getImage("res/piece/w-bishop");
+            image=getImage("/res/piece/w-bishop");
         }
 
         else{
-            image=getImage("res/piece/b-bishop");
+            image=getImage("/res/piece/b-bishop");
         }
     }
 

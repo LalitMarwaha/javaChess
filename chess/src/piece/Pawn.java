@@ -11,10 +11,10 @@ public class Pawn extends Piece {
 		type=Typeo.PAWN;
         
 		if(color==GamePanel.WHITE){
-			image=getImage("res/piece/w-pawn");
+			image=getImage("/res/piece/w-pawn");
 		}
 		else{
-			image=getImage("res/piece/b-pawn");
+			image=getImage("/res/piece/b-pawn");
 		}
 	}
 

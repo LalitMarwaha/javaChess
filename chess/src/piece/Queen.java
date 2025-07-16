@@ -11,10 +11,10 @@ public class Queen extends Piece{
 		type=Typeo.QUEEN;
 
 		if(color==GamePanel.WHITE){
-			image=getImage("res/piece/w-queen");
+			image=getImage("/res/piece/w-queen");
 		}
 		else{
-			image=getImage("res/piece/b-queen");
+			image=getImage("/res/piece/b-queen");
 		}
 	}
 
