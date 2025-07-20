@@ -862,7 +862,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void setPieces() {
 
-		pieces.add(new King(WHITE, 4, 4));
+		pieces.add(new King(WHITE, 5, 8));
 		pieces.add(new King(BLACK, 5, 1));
 
 		pieces.add(new Pawn(WHITE, 1, 7));
@@ -875,12 +875,12 @@ public class GamePanel extends JPanel implements Runnable{
 		pieces.add(new Pawn(WHITE, 8, 7));
 
 		pieces.add(new Rook(WHITE, 1, 8));
-		pieces.add(new Rook(WHITE, 8, 4));
+		pieces.add(new Rook(WHITE, 8, 8));
 
 		pieces.add(new Knight(WHITE, 2, 8));
 		pieces.add(new Knight(WHITE, 7, 8));
 
-		pieces.add(new Bishop(WHITE, 3, 4));
+		pieces.add(new Bishop(WHITE, 3, 8));
 		pieces.add(new Bishop(WHITE, 6, 8));
 
 		pieces.add(new Queen(WHITE, 4, 8));
