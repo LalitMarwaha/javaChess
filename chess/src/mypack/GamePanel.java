@@ -2,6 +2,8 @@ package mypack;
 
 import javax.swing.*;
 import javax.swing.Timer;
+import javax.swing.text.html.HTMLEditorKit.Parser;
+
 import java.awt.*;
 import java.util.*;
 import piece.*;
@@ -44,7 +46,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public String tempString;
 
 	boolean gameOver,staleMate;
-	boolean castlePending,castleL,castleR;
+	boolean castled,castleL,castleR;
 
     //PIECES
     public static ArrayList<Piece> pieces= new ArrayList<>();
@@ -324,20 +326,37 @@ public class GamePanel extends JPanel implements Runnable{
 		activeP.preRow=activeP.row;
 
 		if(tempHittingP==null){
-
-			tempString=moveCount+") "+getMap((activeP.type).toString())+": "+getCharForNumber(tempCol)+(9-tempRow)+" -> "+getCharForNumber(activeP.preCol)+(9-activeP.preRow);
-			System.out.println(tempString);
-			Moves[moveCount-1]=tempString;
-			capturedPiecesArr[moveCount-1]="n";
+			if(castled==false){
+				tempString=moveCount+") "+getMap((activeP.type).toString())+": "+getCharForNumber(tempCol)+(9-tempRow)+" -> "+getCharForNumber(activeP.preCol)+(9-activeP.preRow);
+				System.out.println(tempString);
+				Moves[moveCount-1]=tempString;
+			}
 		}
 
 		else{
 			tempString=moveCount+") "+getMap((activeP.type).toString())+": "+getCharForNumber(tempCol)+(9-tempRow)+" x "+getCharForNumber(activeP.preCol)+(9-activeP.preRow);
 			System.out.println(tempString);
 			Moves[moveCount-1]=tempString;
-			capturedPiecesArr[moveCount-1]=(tempHittingP.type).toString();
 		}
 
+		if(castled){
+			if(castleL){
+				tempString=moveCount+") "+"O-O-O";
+			}
+			if(castleR){
+				tempString=moveCount+") "+"O-O";
+			}
+			if(currentColor==WHITE){
+				tempString+=" s";
+			}
+			else{
+				tempString+=" k";
+			}
+		}
+		if(activeP.moved==false && (activeP.type==Typeo.PAWN || activeP.type==Typeo.KING)){
+			tempString+=" fM";
+		}
+		Moves[moveCount-1]=tempString;
 		moveLogger.logMove();
 		activeP.moved=true;
 
@@ -430,11 +449,14 @@ public class GamePanel extends JPanel implements Runnable{
 
 			if(castlingP.col==1){
 				castlingP.col+=3;
+				castleL=true;
 			}
 			else if(castlingP.col==8){
 				castlingP.col-=2;
+				castleR=true;
 			}
 			castlingP.preCol=castlingP.col;
+			castled=true;
 		}
 	}
 
@@ -669,21 +691,47 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	private String Parser(String x, int i){
-		
+
 		String[] result=x.split(" ");
 		String from=result[2];
-		String what=result[3];
-		String to=result[4];
-		
+
+		if(result.length>=4){
+			String what=result[3];
+			if(i==1){
+				return what;
+			}
+		}
+
+		if(result.length>=5){
+			String to=result[4];
+			if(i==2){
+				return to;
+			}
+		}
+		if(result.length==6){
+			String info=result[5];
+			if(i==3){
+				return info;
+			}
+		}
+
 		if(i==0){
 			return from;
 		}
-		if(i==1){
-			return what;
-		}
+		return "";
+	}
 
-		if(i==2){
-			return to;
+	private String Parser2(String x, int i){
+
+		String[] result=x.split(" ");
+		String castle=result[1];
+		String castleColor=result[2];
+
+		if(i==0){
+			return castle;
+		}
+		if(i==1){
+			return castleColor;
 		}
 		return "";
 	}
@@ -723,7 +771,7 @@ public class GamePanel extends JPanel implements Runnable{
 			undoP.row=undoP.preRow;
 		}
 		
-		else{
+		else if(Parser(Moves[moveCount-2],1).equals("x")){
 			int valx1,valy1,valx2,valy2;
 			valx1=getNumberForChar(Parser(Moves[moveCount-2],0).charAt(0));
 			valy1=9-(Parser(Moves[moveCount-2],0).charAt(1) - '0');
@@ -743,6 +791,57 @@ public class GamePanel extends JPanel implements Runnable{
 
 			pieces.add(capturedPieces.pop());
 			//System.out.println();
+		}
+
+		if(Parser(Moves[moveCount-2],3).equals("fM")){
+			undoP.moved=false;
+		}
+
+		if(Parser2(Moves[moveCount-2],1).equals("s")){
+
+			if(Parser2(Moves[moveCount-2],0).equals("O-O-O")){
+
+				castlingP.col=1;
+				castlingP.preCol=castlingP.col;
+
+				undoP=onBoard(3,8);
+				undoP.col=5;
+				undoP.preCol=undoP.col;
+				undoP.moved=false;
+			}
+
+			if(Parser2(Moves[moveCount-2],0).equals("O-O")){
+				castlingP.col=8;
+				castlingP.preCol=castlingP.col;
+
+				undoP=onBoard(7,8);
+				undoP.col=5;
+				undoP.preCol=undoP.col;
+				undoP.moved=false;
+			}
+		}
+			
+		if(Parser2(Moves[moveCount-2],1).equals("k")){
+			if(Parser2(Moves[moveCount-2],0).equals("O-O-O")){
+
+				castlingP.col=1;
+				castlingP.preCol=castlingP.col;
+
+				undoP=onBoard(3,1);
+				undoP.col=5;
+				undoP.preCol=undoP.col;
+				undoP.moved=false;
+			}
+
+			if(Parser2(Moves[moveCount-2],0).equals("O-O")){
+				castlingP.col=8;
+				castlingP.preCol=castlingP.col;
+
+				undoP=onBoard(7,1);
+				undoP.col=5;
+				undoP.preCol=undoP.col;
+				undoP.moved=false;
+			}
 		}
 	}
 
@@ -862,7 +961,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void setPieces() {
 
-		pieces.add(new King(WHITE, 4, 4));
+		pieces.add(new King(WHITE, 5, 8));
 		pieces.add(new King(BLACK, 5, 1));
 
 		pieces.add(new Pawn(WHITE, 1, 7));
@@ -875,12 +974,12 @@ public class GamePanel extends JPanel implements Runnable{
 		pieces.add(new Pawn(WHITE, 8, 7));
 
 		pieces.add(new Rook(WHITE, 1, 8));
-		pieces.add(new Rook(WHITE, 8, 4));
+		pieces.add(new Rook(WHITE, 8, 8));
 
 		pieces.add(new Knight(WHITE, 2, 8));
 		pieces.add(new Knight(WHITE, 7, 8));
 
-		pieces.add(new Bishop(WHITE, 3, 4));
+		pieces.add(new Bishop(WHITE, 3, 8));
 		pieces.add(new Bishop(WHITE, 6, 8));
 
 		pieces.add(new Queen(WHITE, 4, 8));
